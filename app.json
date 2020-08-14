@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "nata_project",
-    "slug": "nata_project",
+    "name": "sushi_project4",
+    "slug": "sushi_project4",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +21,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": ""
   }
 }
