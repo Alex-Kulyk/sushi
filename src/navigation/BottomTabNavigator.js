@@ -4,20 +4,26 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+
 import Cart from '../components/Cart';
 import Account from '../components/Account';
 import Listing from '../screens/Listing';
+import TabBarCartIconAndLable from '../components/TabBarCartIconAndLable';
 
 const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        activeTintColor: 'green',
+      }}
+    >
       <Tab.Screen
-        name='Listing'
+        name='Menu'
         component={Listing}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name='ios-restaurant' size={size} color={color} />
+            <Ionicons name='ios-restaurant' size={36} color={color} />
           ),
         }}
       />
@@ -26,7 +32,7 @@ const BottomTabNavigator = () => {
         component={Cart}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='cart' size={size} color={color} />
+            <TabBarCartIconAndLable color={color} size={36} />
           ),
         }}
       />
@@ -35,7 +41,7 @@ const BottomTabNavigator = () => {
         component={Account}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name='account' size={size} color={color} />
+            <MaterialCommunityIcons name='account' size={36} color={color} />
           ),
         }}
       />

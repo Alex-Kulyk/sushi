@@ -65,7 +65,7 @@ const SignIn = ({ navigation }) => {
                       size={25}
                     />
 
-                    <AppSubmitButton title='sign in' width='100%' />
+                    <AppSubmitButton title='sign in' />
                   </View>
                 </View>
               )}

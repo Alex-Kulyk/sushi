@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,12 @@ import {
 } from 'react-native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Context } from '../context/CartContext';
 
-const Card = ({ item: { title, subtitle, image, id, price } }) => {
+const Card = ({ item }) => {
+  const { title, subtitle, image, id, price } = item;
+  const { addItemCart } = useContext(Context);
+  console.log('Card');
   return (
     <TouchableHighlight
       style={{ alignItems: 'center' }}
@@ -25,7 +29,7 @@ const Card = ({ item: { title, subtitle, image, id, price } }) => {
         <View
           style={{
             flex: 1,
-            // backgroundColor: 'dodgerblue',
+      
             justifyContent: 'space-between',
             marginHorizontal: 10,
           }}
@@ -49,14 +53,12 @@ const Card = ({ item: { title, subtitle, image, id, price } }) => {
           style={{
             flex: 0.4,
             justifyContent: 'center',
-            // backgroundColor: 'tomato',
+   
             alignItems: 'center',
           }}
         >
-          <TouchableOpacity>
-            <MaterialCommunityIcons name='plus' size={24} color='green' />
-          </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => addItemCart(item)}
             style={{
               backgroundColor: 'green',
               alignItems: 'center',
@@ -67,9 +69,6 @@ const Card = ({ item: { title, subtitle, image, id, price } }) => {
             }}
           >
             <Text style={styles.text}>get</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MaterialCommunityIcons name='minus' size={24} color='green' />
           </TouchableOpacity>
         </View>
       </View>

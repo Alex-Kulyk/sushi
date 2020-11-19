@@ -4,6 +4,7 @@ import {
   StyleSheet,
   View,
   ImageBackground,
+  Image,
   Text,
   TouchableWithoutFeedback,
   Keyboard,
@@ -13,6 +14,7 @@ import {
 } from 'react-native';
 
 import { Formik } from 'formik';
+import Constants from 'expo-constants';
 
 import { useKeyboard } from '../hooks/useKeyboard';
 import * as Yup from 'yup';
@@ -30,6 +32,7 @@ const SignUp = ({ navigation }) => {
   const [keyboardHeight] = useKeyboard();
   const [flowingStyles, setflowingStyles] = useState(null);
   const animatedView = useRef(new Animated.Value(0)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     let isActive = true;
@@ -37,6 +40,10 @@ const SignUp = ({ navigation }) => {
     if (isActive) {
       startAnimation();
     }
+    let timerId = setTimeout(function fade() {
+      fadeIn();
+      timerId = setTimeout(fade, 2800);
+    }, 2800);
 
     if (keyboardHeight > 0)
       setflowingStyles({
@@ -48,8 +55,26 @@ const SignUp = ({ navigation }) => {
       });
     return () => {
       isActive = false;
+      clearTimeout(timerId);
     };
   }, [keyboardHeight]);
+
+  const fadeIn = () => {
+    // Will change fadeAnim value to 1 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0.9,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start(() => fadeOut());
+  };
+  const fadeOut = () => {
+    // Will change fadeAnim value to 0 in 5 seconds
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const animatedStyles = {
     opacity: animatedView,
@@ -59,17 +84,32 @@ const SignUp = ({ navigation }) => {
       toValue: 0.7,
       duration: 6000,
       useNativeDriver: true,
-      easing: Easing.bounce,
+      // easing: Easing.bounce,
     }).start();
   };
 
   return (
     <View style={styles.container}>
       {/* <ActivityIndicator visible={true} /> */}
+
       <ImageBackground
         style={styles.imageBack}
         source={require('../../assets/start_image.png')}
       >
+        <Animated.Image
+          source={require('../../assets/ws1.jpg')}
+          style={[
+            {
+              width: 200,
+              height: 200,
+              alignSelf: 'center',
+              borderRadius: 100,
+              overflow: 'hidden',
+              marginTop: Constants.statusBarHeight,
+            },
+            { opacity: fadeAnim },
+          ]}
+        />
         <Formik
           initialValues={{ email: '', password: '' }}
           onSubmit={(values) => console.log(values)}

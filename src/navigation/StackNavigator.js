@@ -15,7 +15,11 @@ const StackNavigator = () => {
         headerShown: false,
       }}
     >
-      <Stack.Screen name='SignUp' component={SignUp} />
+      <Stack.Screen
+        name='Sign Up'
+        component={SignUp}
+        options={{ gestureDirection: 'vertical' }}
+      />
       <Stack.Screen
         name='SignIn'
         component={SignIn}
@@ -29,11 +33,11 @@ const StackNavigator = () => {
             shadowOpacity: 0,
             borderBottomWidth: 0,
           },
-
           gestureEnabled: true,
           gestureResponseDistance: {
             horizontal: 200,
           },
+          gestureDirection: 'horizontal',
         })}
       />
       <Stack.Screen name='Listing' component={BottomTabNavigator} />
